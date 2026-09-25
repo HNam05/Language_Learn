@@ -36,6 +36,19 @@ export const lessons = [
         rule: 'Für einen Termin nennen wir den Wochentag mit am und die Uhrzeit mit um.',
         example: 'am Montag · am Dienstag\num zehn Uhr · um elf Uhr\nDer Termin ist am Montag um zehn Uhr.',
         vi: 'Dùng am trước thứ trong tuần. Dùng um trước giờ: am Montag (vào thứ Hai), um zehn Uhr (lúc mười giờ).',
+        why: {
+          title: 'Warum heißt es "am Montag", aber "um zehn Uhr"?',
+          de: 'Im Deutschen hat jede Zeitangabe ein ganz bestimmtes Signalwort (Präposition):\n• Wochentage & Tageszeiten: verbinden wir immer mit "am" (z. B. am Montag, am Dienstag, am Morgen). Merkhilfe: "am" ist kurz für "an dem" (an dem Tag).\n• Genaue Uhrzeiten auf der Uhr: verbinden wir immer mit "um" (z. B. um zehn Uhr, um elf Uhr).\n• Monate & Jahreszeiten: verbinden wir mit "im" (kurz für in dem, z. B. im Mai, im Sommer).',
+          vi: 'Tại sao trong tiếng Đức lại phân biệt "am" và "um"?\nTrong tiếng Việt, ta hay dùng từ "vào" hoặc "lúc" khá thoải mái ("vào thứ Hai", "vào lúc mười giờ"). Nhưng người Đức có quy tắc cố định:\n• Ngày trong tuần (Montag, Dienstag...) và các buổi (am Morgen, am Abend) bắt buộc dùng "am" (viết tắt của an dem = vào ngày đó).\n• Giờ chính xác trên mặt đồng hồ (zehn Uhr, elf Uhr) bắt buộc dùng "um".\nNếu nói "um Montag" hay "am zehn Uhr" thì người Đức sẽ thấy sai quy tắc.',
+          comparisons: [
+            {
+              good: 'Der Termin ist am Montag um zehn Uhr.',
+              bad: 'Der Termin ist um Montag am zehn Uhr.',
+              note: 'Wochentage brauchen immer "am". Genaue Uhrzeiten brauchen immer "um".',
+              noteVi: 'Thứ trong tuần luôn đi với "am" · Giờ trên đồng hồ luôn đi với "um".',
+            },
+          ],
+        },
       },
       {
         id: 'termine-tag',
@@ -45,7 +58,12 @@ export const lessons = [
         vi: 'Chọn từ đúng: Lịch hẹn vào thứ Ba.',
         options: ['um', 'am', 'im'],
         answer: 1,
-        explanation: 'Dienstag ist ein Wochentag. Wir sagen: am Dienstag.',
+        explanation: 'Dienstag ist ein Wochentag. Bei Wochentagen sagen wir immer "am" (am Dienstag).',
+        explanationVi: 'Dienstag là thứ Ba (ngày trong tuần). Trước thứ luôn dùng "am". Từ "um" chỉ dùng cho giờ đồng hồ (um 10 Uhr), còn "im" dùng cho tháng hoặc mùa.',
+        whyHint: {
+          de: 'Merkhilfe: Wochentag = "am" (am Montag, am Dienstag).',
+          vi: 'Mẹo nhớ: Thứ trong tuần luôn dùng "am".',
+        },
       },
       {
         id: 'termine-hoeren',
@@ -58,6 +76,7 @@ export const lessons = [
         options: ['Um zehn Uhr.', 'Um zwölf Uhr.', 'Um elf Uhr.'],
         answer: 2,
         explanation: 'In der Nachricht heißt es: am Mittwoch um elf Uhr.',
+        explanationVi: 'Trong đoạn ghi âm nói rõ: "am Mittwoch um elf Uhr" (Thứ Tư lúc mười một giờ).',
       },
       {
         id: 'termine-schreiben',
@@ -66,7 +85,12 @@ export const lessons = [
         prompt: 'Schreibe das fehlende Wort: Mein Termin ist ___ neun Uhr.',
         vi: 'Điền từ còn thiếu: Lịch hẹn của tôi lúc chín giờ.',
         answers: ['um'],
-        explanation: 'Vor einer Uhrzeit steht um: Mein Termin ist um neun Uhr.',
+        explanation: 'Vor einer genauen Uhrzeit steht immer "um": Mein Termin ist um neun Uhr.',
+        explanationVi: 'Trước giờ cụ thể trên đồng hồ (neun Uhr = 9 giờ), tiếng Đức luôn bắt buộc dùng "um".',
+        whyHint: {
+          de: 'Merkhilfe: Genaue Uhrzeit = "um" (um neun Uhr).',
+          vi: 'Mẹo nhớ: Giờ trên đồng hồ luôn dùng "um".',
+        },
       },
       {
         id: 'termine-selbst',
@@ -110,10 +134,29 @@ export const lessons = [
       {
         id: 'einkaufen-regel',
         type: 'rule',
-        title: 'Ich möchte …',
-        rule: 'Lerne diese Wörter mit ihrem Artikel. Beim Wort Apfel heißt es in diesem Satz: Ich möchte einen Apfel.',
-        example: 'der Apfel → einen Apfel\ndie Banane → eine Banane\ndas Brot → ein Brot',
-        vi: 'Học từ cùng với mạo từ. Trong mẫu câu Ich möchte …: der Apfel → einen Apfel, die Banane → eine Banane, das Brot → ein Brot.',
+        title: 'Ich möchte einen Apfel · Warum heißt es "einen"?',
+        rule: 'In der Wörterliste heißt es "der Apfel". Wenn wir etwas bestellen oder haben möchten, sagen wir: "Ich möchte einen Apfel."',
+        example: 'der Apfel (männlich) → Ich möchte einen Apfel.\ndie Banane (weiblich) → Ich möchte eine Banane.\ndas Brot (sächlich) → Ich möchte ein Brot.',
+        vi: 'Từ gốc là "der Apfel". Nhưng khi nói "Tôi muốn một quả táo", ta phải đổi thành "Ich möchte einen Apfel".',
+        why: {
+          title: 'Warum wird aus "ein" plötzlich "einen"? (So sánh với tiếng Việt)',
+          de: 'Warum verändert sich das Wort?\n1. Nomen haben ein Geschlecht: der Apfel (männlich), die Banane (weiblich), das Brot (sächlich).\n2. Der Fall (Akkusativ): Wenn ein Ding das direkte Ziel unseres Wunsches oder Einkaufs ist ("Ich möchte..."), steht es im Akkusativ.\n3. Die Erleichterung: Im Deutschen verändert sich beim unbestimmten Artikel NUR das männliche Geschlecht ("der / ein" wird zu "einen")!\n4. Weiblich und sächlich bleiben unverändert: "eine Banane" und "ein Brot".',
+          vi: 'Tại sao lại đổi từ "ein" thành "einen"? Người Việt hay nhầm ở đâu?\n• Trong tiếng Việt: Từ "quả táo" không bao giờ biến đổi dạng từ. Dù là "Quả táo ngon" hay "Tôi mua một quả táo", người Việt quen nghĩ "ein = một", nên rất dễ nói nhầm thành "Ich möchte ein Apfel" ❌.\n• Trong tiếng Đức: Danh từ chia làm 3 giống (der, die, das). Khi đứng sau động từ chỉ hành động hoặc mong muốn như "Ich möchte..." (Akkusativ), CHỈ CÓ TỪ GIỐNG ĐỰC (der) bị biến đổi đuôi thành "einen"!\n• Giống cái (die Banane -> eine Banane) và giống trung (das Brot -> ein Brot) giữ nguyên, không thay đổi.',
+          comparisons: [
+            {
+              good: 'Ich möchte einen Apfel, bitte.',
+              bad: 'Ich möchte ein Apfel, bitte.',
+              note: 'der Apfel ist männlich. Nach "Ich möchte..." wird daraus "einen Apfel".',
+              noteVi: 'Vì der Apfel là giống đực. Khi muốn mua quả táo, mạo từ phải đổi thành "einen Apfel".',
+            },
+            {
+              good: 'Ich möchte eine Banane und ein Brot.',
+              bad: 'Ich möchte einen Banane und einen Brot.',
+              note: 'die Banane (weiblich) bleibt "eine" · das Brot (sächlich) bleibt "ein".',
+              noteVi: 'Giống cái vẫn là "eine" · Giống trung vẫn là "ein", không đổi thành "einen".',
+            },
+          ],
+        },
       },
       {
         id: 'einkaufen-auswahl',
@@ -123,7 +166,12 @@ export const lessons = [
         vi: 'Câu nào dùng để mua một quả chuối?',
         options: ['Ich möchte einen Apfel.', 'Ich möchte ein Brot.', 'Ich möchte eine Banane.'],
         answer: 2,
-        explanation: 'Es heißt die Banane. Die passende Bestellung ist: Ich möchte eine Banane.',
+        explanation: 'Es heißt die Banane (weiblich). Bei weiblichen Wörtern bleibt es bei "eine": Ich möchte eine Banane.',
+        explanationVi: 'Vì quả chuối là giống cái (die Banane). Đối với từ giống cái, ta dùng "eine Banane". "einen" chỉ dùng cho giống đực như der Apfel.',
+        whyHint: {
+          de: 'die Banane (weiblich) → "eine Banane" (weibliche Wörter verändern sich hier nicht).',
+          vi: 'die Banane là giống cái, nên dùng "eine Banane" (không đổi đuôi).',
+        },
       },
       {
         id: 'einkaufen-hoeren',
@@ -136,6 +184,7 @@ export const lessons = [
         options: ['Drei Euro.', 'Zwei Euro.', 'Vier Euro.'],
         answer: 0,
         explanation: 'In diesem Beispiel kostet der Einkauf drei Euro. Der Preis aus dem ersten Gespräch war ein anderer.',
+        explanationVi: 'Trong cuộc đối thoại này giá là ba euro (Drei Euro).',
       },
       {
         id: 'einkaufen-schreiben',
@@ -144,7 +193,12 @@ export const lessons = [
         prompt: 'Ergänze ein, eine oder einen: Ich möchte ___ Apfel, bitte.',
         vi: 'Điền ein, eine hoặc einen: Tôi muốn mua một quả táo.',
         answers: ['einen'],
-        explanation: 'Es heißt der Apfel. In diesem Satz sagen wir: Ich möchte einen Apfel, bitte.',
+        explanation: 'Es heißt der Apfel (männlich). Wenn wir den Apfel bestellen, heißt es im Akkusativ: "Ich möchte einen Apfel, bitte."',
+        explanationVi: 'Gốc là "der Apfel" (giống đực). Khi dùng trong câu "Ich möchte...", giống đực biến thành "einen Apfel". Đây là điểm khác biệt lớn nhất so với tiếng Việt!',
+        whyHint: {
+          de: 'der Apfel (männlich) → nach "Ich möchte..." wird es zu "einen".',
+          vi: 'der Apfel (giống đực) đứng sau "Ich möchte..." phải biến thành "einen".',
+        },
       },
       {
         id: 'einkaufen-selbst',
@@ -187,10 +241,29 @@ export const lessons = [
       {
         id: 'gestern-regel',
         type: 'rule',
-        title: 'Zwei Teile für die Vergangenheit',
-        rule: 'Diese Sätze über gestern brauchen zwei Teile: habe … eingekauft oder bin … gegangen. Lerne das ganze Muster zusammen.',
-        example: 'Heute kaufe ich ein. → Gestern habe ich eingekauft.\nHeute gehe ich nach Hause. → Gestern bin ich nach Hause gegangen.\nHeute koche ich. → Gestern habe ich gekocht.',
-        vi: 'Các câu này kể về hôm qua và có hai phần: habe … eingekauft hoặc bin … gegangen. Hãy học cả mẫu câu cùng nhau.',
+        title: 'Über gestern sprechen · Die zwei Teile der Vergangenheit',
+        rule: 'Wenn wir über gestern erzählen, bauen wir eine Satzklammer aus zwei Teilen: einem Hilfsverb (habe / bin) und dem Verb am Satzende (gekocht / gegangen).',
+        example: 'Heute kaufe ich ein. → Gestern habe ich eingekauft.\nHeute koche ich. → Gestern habe ich gekocht.\nHeute gehe ich. → Gestern bin ich nach Hause gegangen.',
+        vi: 'Khi kể về hôm qua, tiếng Đức dùng câu có 2 phần: trợ động từ (habe/bin) đứng ở vị trí thứ hai, và động từ quá khứ (gekocht/gegangen) kẹp ở tận cuối câu.',
+        why: {
+          title: 'Warum sagt man "Gestern habe ich...", nicht "Gestern ich habe..."?',
+          de: 'Die wichtigste Grundregel im deutschen Satzbau:\n1. Verb-Zweitstellung: In einem normalen deutschen Satz steht das gebeugte Verb IMMER an Position 2. Wenn "Gestern" an Position 1 steht, MUSS das Hilfsverb "habe" sofort an Position 2 folgen!\n2. Die Satzklammer: Das Hilfsverb ("habe") und das Tätigkeitswort am Ende ("gekocht") umklammern die anderen Informationen wie zwei Buchstützen.\n3. habe oder bin?: Die meisten Tätigkeiten nutzen "haben" (habe gekocht). Ortswechsel von A nach B nutzen "sein" (bin gegangen).',
+          vi: 'Tại sao người Việt rất hay nói sai câu quá khứ trong tiếng Đức?\n• Thói quen tiếng Việt: Ta nói "Hôm qua [thời gian] tôi [chủ ngữ] đã nấu ăn [động từ]". Khi sang tiếng Đức, người Việt thường dịch từng từ một thành: "Gestern ich habe gekocht" ❌.\n• Quy tắc vàng của tiếng Đức: ĐỘNG TỪ LUÔN PHẢI Ở VỊ TRÍ SỐ 2! Nếu từ chỉ thời gian "Gestern" đứng ở vị trí 1, thì trợ động từ "habe" BẮT BUỘC phải nhảy lên vị trí 2, rồi mới tới chủ ngữ "ich": "Gestern [1] habe [2] ich [3] gekocht [cuối]".\n• habe hay bin?: Đa số các hành động thông thường dùng "habe" (habe gekocht). Chỉ khi di chuyển từ chỗ này sang chỗ khác (đi lại) mới dùng "bin" (bin gegangen).',
+          comparisons: [
+            {
+              good: 'Gestern habe ich gekocht.',
+              bad: 'Gestern ich habe gekocht.',
+              note: 'Das Verb "habe" muss an Position 2 stehen, nicht erst nach "ich".',
+              noteVi: 'Lỗi dịch từ tiếng Việt: Trợ động từ "habe" bắt buộc phải đứng ở vị trí số 2, ngay sau Gestern.',
+            },
+            {
+              good: 'Danach bin ich nach Hause gegangen.',
+              bad: 'Danach habe ich nach Hause gegangen.',
+              note: 'Ortswechsel von A nach B = immer mit "bin" (sein), nicht "habe".',
+              noteVi: 'Đi từ nơi này sang nơi khác (về nhà) là sự dịch chuyển nơi chốn, bắt buộc dùng "bin", không dùng "habe".',
+            },
+          ],
+        },
       },
       {
         id: 'gestern-auswahl',
@@ -201,6 +274,11 @@ export const lessons = [
         options: ['habe', 'bin'],
         answer: 1,
         explanation: 'Das Muster lautet: Ich bin nach Hause gegangen.',
+        explanationVi: 'Động từ "gehen" (đi lại, di chuyển từ A đến B) trong tiếng Đức bắt buộc phải đi với trợ động từ "bin" (sein): "Ich bin gegangen". Các hành động không di chuyển vị trí như kochen, einkaufen mới đi với "habe".',
+        whyHint: {
+          de: 'Ortswechsel (gehen) → immer mit "bin".',
+          vi: 'Di chuyển nơi chốn (gehen) luôn đi với "bin".',
+        },
       },
       {
         id: 'gestern-hoeren',
@@ -213,6 +291,7 @@ export const lessons = [
         options: ['Sie hat gekocht.', 'Sie hat eingekauft.', 'Sie hat einen Termin vereinbart.'],
         answer: 0,
         explanation: 'Die Person hat danach gekocht. Sie sagt: Danach habe ich gekocht.',
+        explanationVi: 'Người này sau khi về nhà đã nấu ăn: "Danach habe ich gekocht." Chú ý động từ "habe" đứng ngay sau từ "Danach" (vị trí 2).',
       },
       {
         id: 'gestern-schreiben',
@@ -222,6 +301,11 @@ export const lessons = [
         vi: 'Điền dạng phù hợp của kochen: Hôm qua tôi đã nấu ăn.',
         answers: ['gekocht'],
         explanation: 'kochen wird hier zu gekocht: Gestern habe ich gekocht.',
+        explanationVi: 'Động từ kochen khi chuyển sang quá khứ thêm tiền tố ge- và hậu tố -t thành "gekocht": Gestern habe ich gekocht.',
+        whyHint: {
+          de: 'kochen → ge-koch-t.',
+          vi: 'kochen đổi sang quá khứ thành gekocht.',
+        },
       },
       {
         id: 'gestern-selbst',

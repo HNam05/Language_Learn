@@ -12,6 +12,7 @@ Dieses Dokument dient als gemeinsame Wissensbasis und Richtlinie für die Entwic
 - **Didaktik**:
   - Deutsch ist die Lernsprache; Vietnamesisch dient als zuschaltbare Stütz- und Erklärsprache.
   - Kontrastive Schwerpunkte: Nomen mit Artikel/Plural (*der/die/das*), Kasus (*Akkusativ/Dativ*), Satzklammer/Perfekt (*habe eingekauft / bin gegangen*), Verbposition.
+  - **Kontrastive Grammatik („Warum ist das so?“)**: Jede Grammatikübung und Regel muss erklären, *warum* eine Form/ein Artikel gewählt wird und warum die intuitive vietnamesische Denkweise im Deutschen nicht funktioniert (Vergleich: Richtig ✔ vs. Häufiger Fehler ✖ durch wörtliche Übersetzung).
   - Alltagssituationen statt isolierter Regeltabellen: Jede Lektion beginnt mit einer Handlung (z. B. Termin vereinbaren, Einkaufen) und endet mit einer eigenen Formulierung.
   - Spaced Repetition (aktives Abrufen mit zeitlich verteilter Wiederholung) ohne Zwang oder Strafen.
 

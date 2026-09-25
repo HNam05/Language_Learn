@@ -21,3 +21,32 @@ export function help(text, settings) {
 export function audioPlayer(file, transcript = '') {
   return `<div class="audio-block"><label>Hören Sie zu. Sie können die Aufnahme wiederholen.<audio controls preload="metadata" src="./assets/audio/${escapeHtml(file)}">Ihr Browser unterstützt keine Audiowiedergabe.</audio></label><label class="speed">Geschwindigkeit <select data-speed aria-label="Geschwindigkeit der Aufnahme"><option value="1">Normal</option><option value="0.8">Langsamer</option></select></label><p class="audio-error" role="status"></p>${transcript ? `<details><summary>Text zur Aufnahme anzeigen</summary><p>${escapeHtml(transcript)}</p><small>Mit Text üben ist erlaubt. Versuchen Sie es später auch ohne Hilfe.</small></details>` : ''}</div>`;
 }
+export function whyGrammar(why, settings) {
+  if (!why) return '';
+  const comparisons = why.comparisons && why.comparisons.length ? `
+    <div class="contrast-list">
+      <h4 class="contrast-title">Richtig vs. Häufiger Fehler · So sánh để tránh lỗi</h4>
+      ${why.comparisons.map(c => `
+        <div class="contrast-item">
+          <div class="case-row good"><span class="case-badge">✔ Richtig</span><strong>${escapeHtml(c.good)}</strong></div>
+          <div class="case-row bad"><span class="case-badge">✖ Nicht so</span><span>${escapeHtml(c.bad)}</span></div>
+          <p class="contrast-note">${escapeHtml(c.note)}${settings.vietnamese && c.noteVi ? `<br><span lang="vi" class="vi-sub">${escapeHtml(c.noteVi)}</span>` : ''}</p>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
+  return `
+    <div class="why-card">
+      <div class="why-header">
+        <span class="why-icon" aria-hidden="true">💡</span>
+        <h3>${escapeHtml(why.title || 'Warum ist das so?')}</h3>
+      </div>
+      <div class="why-body">
+        <p class="why-de">${escapeHtml(why.de).replace(/\n/g, '<br>')}</p>
+        ${settings.vietnamese && why.vi ? `<div class="why-vi translation" lang="vi">${escapeHtml(why.vi).replace(/\n/g, '<br>')}</div>` : ''}
+      </div>
+      ${comparisons}
+    </div>
+  `;
+}
