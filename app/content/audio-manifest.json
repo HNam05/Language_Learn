@@ -1,0 +1,26 @@
+[
+  {
+    "file": "termine-dialog.wav",
+    "text": "Guten Tag. Wie kann ich Ihnen helfen? Guten Tag. Ich möchte einen Termin. Geht es am Montag um zehn Uhr? Ja, das passt. Montag um zehn Uhr. Vielen Dank."
+  },
+  {
+    "file": "termine-hoeren.wav",
+    "text": "Guten Tag, Lan. Ihr Termin ist am Mittwoch um elf Uhr. Bis Mittwoch!"
+  },
+  {
+    "file": "einkaufen-dialog.wav",
+    "text": "Guten Tag. Was möchten Sie? Ich möchte einen Apfel und ein Brot, bitte. Gern. Das kostet vier Euro. Vier Euro. Hier, bitte. Vielen Dank."
+  },
+  {
+    "file": "einkaufen-hoeren.wav",
+    "text": "Ich möchte zwei Bananen, bitte. Gern. Das kostet drei Euro. Vielen Dank."
+  },
+  {
+    "file": "gestern-dialog.wav",
+    "text": "Gestern habe ich eingekauft. Danach bin ich nach Hause gegangen. Am Abend habe ich gekocht."
+  },
+  {
+    "file": "gestern-hoeren.wav",
+    "text": "Gestern bin ich nach Hause gegangen. Danach habe ich gekocht."
+  }
+]

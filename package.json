@@ -1,0 +1,13 @@
+{
+  "name": "schritt-fuer-schritt",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lokale Deutsch-Uebungen mit vietnamesischen Hilfen",
+  "scripts": {
+    "test": "node --test",
+    "audio": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/generate-audio.ps1",
+    "start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1 -NoBrowser"
+  },
+  "engines": { "node": ">=22" }
+}
