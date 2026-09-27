@@ -1,0 +1,11 @@
+node_modules/
+.runtime/
+.tmp/
+test-results/
+*.log
+*.local
+.env
+.env.*
+!.env.example
+lernstand-*.json
+.obsidian/
