@@ -9,6 +9,8 @@
     "check": "node scripts/check.mjs",
     "content:check": "node scripts/validate-content.mjs",
     "audio": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/generate-audio.ps1",
+    "audio:sync": "node scripts/sync-audio.mjs",
+    "audio:missing": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/generate-audio.ps1 -Missing",
     "start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1 -NoBrowser"
   },
   "engines": { "node": ">=22" }

@@ -40,10 +40,11 @@ test('lesson identifiers, accepted answers and audio assets form a consistent of
   assert.equal(usedAudio.size, manifest.length, 'Manifest contains audio not used by a lesson');
 });
 
-test('pilot lessons have explicit course-module metadata without changing legacy IDs', () => {
-  assert.deepEqual(courseLessons.map(lesson => lesson.id), ['vorstellen', 'a1-m01-l02', 'a1-m01-l03', 'a1-m01-l04', 'a1-m01-l05', 'a1-m01-l06', 'a1-m02-l01', 'a1-m02-l02', 'a1-m02-l03', 'a1-m02-l04', 'a1-m02-l05', 'a1-m02-l06', 'a1-m03-l01', 'a1-m03-l02', 'a1-m03-l03', 'a1-m03-l04', 'a1-m03-l05', 'a1-m03-l06', 'termine', 'einkaufen', 'gestern']);
-  assert.deepEqual([...new Set(courseLessons.map(lesson => lesson.moduleId))], ['a1-m01', 'a1-m02', 'a1-m03', 'a1-m04', 'a1-m06', 'a1-m12']);
-  assert.equal(courseModules.length, 6);
+test('lessons follow the course registry order and keep the legacy IDs', () => {
+  const expected = [...courseModules].sort((a, b) => a.order - b.order).flatMap(module => module.lessonIds);
+  assert.deepEqual(courseLessons.map(lesson => lesson.id), expected);
+  for (const id of ['vorstellen', 'termine', 'einkaufen', 'gestern']) assert.ok(expected.includes(id), id);
+  assert.deepEqual(['vorstellen', 'termine', 'einkaufen', 'gestern'].map(id => courseLessons.find(lesson => lesson.id === id).moduleId), ['a1-m01', 'a1-m04', 'a1-m06', 'a1-m12']);
   for (const lesson of courseLessons) {
     assert.ok(Array.isArray(lesson.goalIds) && lesson.goalIds.length > 0);
     assert.ok(Array.isArray(lesson.skills) && lesson.skills.length > 0);
@@ -100,7 +101,7 @@ test('learning path groups registered lessons by module and states available sco
   const html = pathView(courseLessons, emptyState());
   assert.match(html, /Kontakt aufnehmen/u);
   assert.match(html, /Zeit und Termine/u);
-  assert.match(html, /0 von 21 verfügbaren Lektionen geübt/u);
+  assert.match(html, new RegExp(`0 von ${courseLessons.length} verfügbaren Lektionen geübt`, 'u'));
   assert.doesNotMatch(html, /module-b1/u);
 });
 

@@ -10,7 +10,7 @@ import { lessonView } from '../app/src/views.js';
 
 const manifest = JSON.parse(readFileSync(new URL('../app/content/audio-manifest.json', import.meta.url)));
 const check = (items, modules = courseModules) => validateContent(items, modules, manifest, file => readFileSync(new URL(`../app/assets/audio/${file}`, import.meta.url)));
-test('shared course passes structural validation', () => assert.equal(check(lessons).lessons, 21));
+test('shared course passes structural validation', () => assert.equal(check(lessons).lessons, lessons.length));
 // Corruptions address lessons by ID so new modules do not shift the fixtures.
 const byId = (items, id) => items.find(lesson => lesson.id === id);
 const corruptions = [
@@ -30,16 +30,19 @@ const corruptions = [
 for (const [name, corrupt, error] of corruptions) test(`rejects ${name}`, () => {
   const copy = structuredClone(lessons); corrupt(copy); assert.throws(() => check(copy), error);
 });
-test('a pilot cannot be declared complete with one lesson', () => {
-  const modules = structuredClone(courseModules); modules.find(module => module.id === 'a1-m04').status = 'complete';
-  assert.throws(() => check(lessons, modules), /sechs Lektionen/);
+test('a module cannot be declared complete with fewer than six lessons', () => {
+  const modules = structuredClone(courseModules);
+  const module = modules.find(item => item.id === 'a1-m01');
+  const removed = module.lessonIds.pop();
+  module.status = 'complete';
+  assert.throws(() => check(lessons.filter(lesson => lesson.id !== removed), modules), /sechs Lektionen/);
 });
 test('A1-M01 has all six slots in order and may be marked complete only structurally', () => {
   const module = courseModules.find(item => item.id === 'a1-m01');
   assert.deepEqual(module.lessonIds, ['vorstellen', 'a1-m01-l02', 'a1-m01-l03', 'a1-m01-l04', 'a1-m01-l05', 'a1-m01-l06']);
   assert.equal(module.status, 'pilot', 'stays pilot until human review');
   const modules = structuredClone(courseModules); modules.find(item => item.id === 'a1-m01').status = 'complete';
-  assert.equal(check(lessons, modules).lessons, 21);
+  assert.equal(check(lessons, modules).lessons, lessons.length);
   for (const id of module.lessonIds.slice(1)) {
     const lesson = byId(lessons, id);
     assert.ok(lesson.steps.length >= 6 && lesson.steps.length <= 9, `${id}: 6–9 Schritte`);
@@ -51,7 +54,9 @@ test('A1-M01 has all six slots in order and may be marked complete only structur
   assert.ok(byId(lessons, 'a1-m01-l06').steps.some(step => step.mode === 'interaction'));
 });
 // Production rules from the masterplan (section 4) for every fully written module.
-for (const moduleId of ['a1-m01', 'a1-m02', 'a1-m03']) test(`${moduleId} follows the module production rules`, () => {
+const writtenModules = courseModules.filter(module => module.lessonIds.length === 6).map(module => module.id);
+test('at least the first three A1 modules are fully written', () => assert.ok(['a1-m01', 'a1-m02', 'a1-m03'].every(id => writtenModules.includes(id))));
+for (const moduleId of writtenModules) test(`${moduleId} follows the module production rules`, () => {
   const module = courseModules.find(item => item.id === moduleId);
   assert.equal(module.lessonIds.length, 6);
   const own = module.lessonIds.filter(id => id.startsWith(moduleId));

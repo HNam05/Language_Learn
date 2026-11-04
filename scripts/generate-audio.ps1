@@ -4,7 +4,9 @@ param(
     [string]$ManifestPath,
     [string]$OutputDir,
     # Only these files (e.g. -Only a1-m01-l04-dialog.wav); existing recordings stay untouched.
-    [string[]]$Only
+    [string[]]$Only,
+    # Only files that do not exist yet (use after `npm run audio:sync`).
+    [switch]$Missing
 )
 
 Set-StrictMode -Version Latest
@@ -57,6 +59,7 @@ if ($Only.Count -gt 0) {
 foreach ($item in $manifest) {
     if ($Only.Count -gt 0 -and ($Only -notcontains $item.file)) { continue }
     $targetFile = Join-Path $OutputDir $item.file
+    if ($Missing -and (Test-Path $targetFile)) { continue }
     Write-Host "  -> Erzeuge $($item.file) ..."
     $synth.SetOutputToWaveFile($targetFile)
     $synth.Speak($item.text)
