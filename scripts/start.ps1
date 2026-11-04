@@ -34,10 +34,12 @@ $mimeTypes = @{
 
 function Send-Response {
     param($Stream, [int]$Status, [string]$Reason, [byte[]]$Body,
-        [string]$ContentType = 'text/plain; charset=utf-8', [bool]$HeadOnly = $false)
+        [string]$ContentType = 'text/plain; charset=utf-8', [bool]$HeadOnly = $false,
+        [string]$ExtraHeaders = '')
     $header = "HTTP/1.1 $Status $Reason`r`nContent-Type: $ContentType`r`nContent-Length: $($Body.Length)`r`n"
     $header += "Connection: close`r`nCache-Control: no-store`r`nX-Content-Type-Options: nosniff`r`n"
     $header += "Referrer-Policy: no-referrer`r`nCross-Origin-Resource-Policy: same-origin`r`n"
+    $header += $ExtraHeaders
     if ($Status -eq 405) { $header += "Allow: GET, HEAD`r`n" }
     $headerBytes = [Text.Encoding]::ASCII.GetBytes($header + "`r`n")
     $Stream.Write($headerBytes, 0, $headerBytes.Length)
@@ -102,7 +104,37 @@ function Serve-Request {
         $inspectPath = [IO.Path]::GetDirectoryName($inspectPath)
     }
     $bytes = [IO.File]::ReadAllBytes($filePath)
-    Send-Response $Stream 200 'OK' $bytes $mimeTypes[$extension] $headOnly
+    $fileHeaders = "Accept-Ranges: bytes`r`n"
+    $rangeHeaders = @($lines | Where-Object { $_ -match '^Range:' })
+    # Browsers need byte ranges to seek in local WAV recordings. HEAD ignores Range.
+    if (-not $headOnly -and $rangeHeaders.Count -gt 0) {
+        [long]$rangeStart = 0
+        [long]$rangeEnd = $bytes.LongLength - 1
+        $validRange = $rangeHeaders.Count -eq 1 -and $rangeHeaders[0] -match '^Range:\s*bytes=(\d*)-(\d*)\s*$'
+        if ($validRange) {
+            $first = $Matches[1]
+            $last = $Matches[2]
+            if ($first -eq '') {
+                [long]$suffixLength = 0
+                $validRange = [long]::TryParse($last, [ref]$suffixLength) -and $suffixLength -gt 0
+                if ($validRange) { $rangeStart = [Math]::Max(0, $bytes.LongLength - $suffixLength) }
+            } else {
+                $validRange = [long]::TryParse($first, [ref]$rangeStart)
+                if ($last -ne '') { $validRange = $validRange -and [long]::TryParse($last, [ref]$rangeEnd) }
+                $rangeEnd = [Math]::Min($rangeEnd, $bytes.LongLength - 1)
+            }
+            $validRange = $validRange -and $rangeStart -le $rangeEnd -and $rangeStart -lt $bytes.LongLength
+        }
+        if (-not $validRange) {
+            Send-Response $Stream 416 'Range Not Satisfiable' ([byte[]]@()) 'text/plain; charset=utf-8' $false ("Content-Range: bytes */$($bytes.Length)`r`n" + $fileHeaders)
+            return
+        }
+        $partial = New-Object byte[] ($rangeEnd - $rangeStart + 1)
+        [Array]::Copy($bytes, $rangeStart, $partial, 0, $partial.Length)
+        Send-Response $Stream 206 'Partial Content' $partial $mimeTypes[$extension] $false ("Content-Range: bytes $rangeStart-$rangeEnd/$($bytes.Length)`r`n" + $fileHeaders)
+        return
+    }
+    Send-Response $Stream 200 'OK' $bytes $mimeTypes[$extension] $headOnly $fileHeaders
 }
 
 if (-not [IO.File]::Exists((Join-Path $appRoot 'index.html'))) {

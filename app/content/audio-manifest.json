@@ -22,5 +22,53 @@
   {
     "file": "gestern-hoeren.wav",
     "text": "Gestern bin ich nach Hause gegangen. Danach habe ich gekocht."
+  },
+  {
+    "file": "a1-m01-l04-dialog.wav",
+    "text": "Wie ist Ihr Familienname? Nguyen. Können Sie das bitte buchstabieren? N, G, U, Y, E, N. Danke. Und Ihr Vorname? Hoa. H, O, A."
+  },
+  {
+    "file": "a1-m01-l04-hoeren.wav",
+    "text": "Guten Tag. Mein Name ist Vu. V, U. Ich wohne in Rostock."
+  },
+  {
+    "file": "a1-m01-l06-dialog.wav",
+    "text": "Guten Tag! Sind Sie neu hier im Haus? Ja. Ich heiße Duc Pham. Und Sie? Ich bin Petra Schulz. Freut mich. Woher kommen Sie? Ich komme aus Vietnam. Und Sie? Ich komme aus Hamburg. Aber ich wohne schon lange hier."
+  },
+  {
+    "file": "a1-m02-l01-dialog.wav",
+    "text": "Ist das Ihre Familie? Ja. Das ist mein Mann. Er heißt Thanh. Haben Sie Kinder? Ja, ich habe zwei Kinder. Mein Sohn heißt Nam, meine Tochter heißt Linh. Und wer ist das? Das ist meine Enkelin. Sie heißt Mia."
+  },
+  {
+    "file": "a1-m02-l04-dialog.wav",
+    "text": "Für Ihre Kundenkarte: Wie ist Ihre Telefonnummer, bitte? Null, drei, null. Zwei, drei, eins, zwei, fünf. Vier, eins, sieben. Danke. Und wie alt sind Sie? Ich bin achtundsechzig Jahre alt."
+  },
+  {
+    "file": "a1-m02-l04-hoeren.wav",
+    "text": "Hallo, hier ist Kim Tran. Bitte rufen Sie mich zurück. Meine Nummer ist: null, vier, null. Sechs, sechs, neun, sechs, neun. Zwei, acht, drei. Danke!"
+  },
+  {
+    "file": "a1-m02-l04-zahlen.wav",
+    "text": "Das ist Frau Lam. Sie ist dreiundsiebzig Jahre alt."
+  },
+  {
+    "file": "a1-m02-l06-dialog.wav",
+    "text": "Guten Tag, Frau Vo! Wer ist das? Das ist meine Tochter. Sie heißt Lan. Freut mich, Lan. Wohnen Sie auch hier? Nein, ich wohne in Köln. Ich bin Pflegerin. Lan ist dreiundvierzig. Sie hat zwei Kinder."
+  },
+  {
+    "file": "a1-m03-l01-dialog.wav",
+    "text": "Entschuldigung, was ist das? Das ist ein Kuli. Der Kuli ist blau. Und wie heißt das auf Deutsch? Das ist eine Brille. Ist das Ihre Brille? Ja, danke! Meine Brille ist schwarz."
+  },
+  {
+    "file": "a1-m03-l04-dialog.wav",
+    "text": "Wir lesen jetzt Seite zwölf. Entschuldigung, ich verstehe das nicht. Noch einmal, bitte. Gern. Wir lesen Seite zwölf. Können Sie bitte langsamer sprechen? Ja. Seite. Zwölf. Danke, jetzt verstehe ich es."
+  },
+  {
+    "file": "a1-m03-l04-hoeren.wav",
+    "text": "Hallo, hier ist Frau Weber. Morgen ist der Kurs nicht in Raum vier. Der Kurs ist in Raum sieben. Ich wiederhole: Raum sieben. Bis morgen!"
+  },
+  {
+    "file": "a1-m03-l06-dialog.wav",
+    "text": "Guten Tag. Was suchen Sie? Ich suche meine Tasche. Sie ist braun. Ist das Ihre Tasche? Nein, die Tasche ist schwarz. Meine Tasche ist braun und klein. Entschuldigung, noch einmal, bitte. Braun und groß? Nein, nicht groß. Braun und klein. Ah, hier. Ist das Ihre Tasche? Ja! Das ist meine Tasche. Vielen Dank!"
   }
 ]

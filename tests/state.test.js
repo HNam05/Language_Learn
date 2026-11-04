@@ -278,3 +278,26 @@ test('a stale tab cannot overwrite another tab and remains blocked on subsequent
   assert.equal(storage.value, latestRaw);
   assert.equal(storage.writes, 1);
 });
+
+test('completing a lesson retains written responses, including after backup and restore', () => {
+  const writingLesson = { id: 'writing', words: [], steps: [{ id: 'writing-free', type: 'free' }] };
+  const state = emptyState();
+  state.active = { lessonId: 'writing', step: 0, answers: { 'writing-free': { value: 'Ich möchte einen Termin.\nAm Montag, bitte.', checked: true, correct: false } } };
+  const completed = completeLesson(state, writingLesson, now);
+  assert.equal(completed.notes['writing-free'], state.active.answers['writing-free'].value);
+  assert.equal(completed.active, null);
+  assert.deepEqual(validateState(JSON.parse(JSON.stringify(completed)), [writingLesson]), completed);
+  completed.active = { lessonId: 'writing', step: 0, answers: { 'writing-free': { value: '  ', checked: true, correct: false } } };
+  assert.equal(completeLesson(completed, writingLesson, now).notes['writing-free'], state.active.answers['writing-free'].value, 'A later spoken-only attempt must not erase written work');
+});
+
+test('legacy v1 backups remain usable without notes; malformed or unknown notes are rejected', () => {
+  const legacy = stateWithDraft();
+  delete legacy.notes;
+  assert.deepEqual(validateState(legacy, lessons).notes, {});
+  for (const notes of [[], null, { unknown: 'text' }, { 'fixture-input': 'not a free response' }, JSON.parse('{"__proto__":"text"}')]) {
+    assert.throws(() => validateState({ ...emptyState(), notes }, lessons));
+  }
+  const writingLesson = { id: 'writing', words: [], steps: [{ id: 'writing-free', type: 'free' }] };
+  for (const value of [7, null, 'a'.repeat(5001)]) assert.throws(() => validateState({ ...emptyState(), notes: { 'writing-free': value } }, [writingLesson]));
+});
