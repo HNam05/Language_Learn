@@ -25,9 +25,12 @@ Ziel ist es, bestehende A1-Kenntnisse im Alltag zu festigen und Schritt für Sch
   - Große Touch-/Klickflächen (mind. 48 × 48 px).
   - Hoher Kontrast, keine hektischen Timer oder Bestrafungen bei Pausen.
 - **Audio-Unterstützung**: Die Pilotlektionen enthalten vertonte Dialoge und Hörübungen; weitere Lektionen können zunächst mit Text/Transkript starten und erhalten Audio nach der Sprachprüfung.
+- **Einbürgerungstest üben (`Leben in Deutschland`)**: 100 eigene Übungsfragen zu Demokratie, Geschichte und Gesellschaft plus 3 Fragen je gewähltem Bundesland und eine Probeprüfung mit 33 Fragen (pausierbar, Auswertung mit Lösungen), mit vietnamesischer Hilfe, gemischten Antworten, Erklärung, wichtigen Wörtern und Vorlesen (lokale deutsche Browserstimme, auch langsam). Ohne Zeitdruck; Fehler kommen am nächsten Tag wieder. Dazu eine Übersicht der Einbürgerungsvoraussetzungen (inkl. Sonderregel für frühere DDR-Vertragsarbeitnehmer) und Links zum offiziellen BAMF-Katalog. Hintergrund: [docs/curriculum/EINBUERGERUNG-STRATEGIE.md](docs/curriculum/EINBUERGERUNG-STRATEGIE.md).
 - **Spaced Repetition (Wiederholungsmanager)**: Gelernte Wörter werden in intelligenten zeitlichen Abständen (1, 3, 7, 14, 30 Tage) zur freiwilligen Wiederholung angeboten.
-- **Ruhiger Einstieg**: Beim ersten Besuch erklärt eine kurze Willkommenskarte den Ablauf. Die Startseite zeigt außerdem geübte Lektionen und fällige Wörter.
+- **Kompletter A1-Kurs**: 12 Module mit je sechs kurzen Lektionen (Kontakt, Familie, Dinge und Sprache, Termine, Tagesablauf, Einkauf, Wohnen, Verkehr, Gesundheit, Freizeit, Dienstleistungen, Gestern und morgen). Jede Lektion: Alltagssituation, Grammatik mit Vergleich zum Vietnamesischen, Hör-/Leseaufgaben, eigene Sätze und Sprechaufträge. Der Lernweg zeigt Kann-Ziele und Fortschritt je Modul; nach jeder Lektion geht es mit einem Klick weiter.
+- **Ruhiger Einstieg**: Beim ersten Besuch erklärt eine zweisprachige Willkommenskarte den Ablauf und fragt, ob Vietnamesisch als Hilfe angezeigt werden soll. Die Startseite zeigt außerdem geübte Lektionen und fällige Wörter.
 - **Lokaler Speicher**: Fortschritt bleibt im Browser gespeichert und kann über *Einstellungen* als JSON-Datei gesichert und wiederhergestellt werden. Eigene Übungssätze bleiben nach dem Abschluss unter *Mein Lernweg → Meine Sätze für den Sprachkurs* erhalten. Bei gesperrtem oder vollem Speicher zeigt die App eine Warnung. Alte v1-Sicherungen bleiben lesbar.
+- **Sätze für den Unterricht**: Gespeicherte eigene Formulierungen können als übersichtliche Druckseite mit in den Sprachkurs genommen werden.
 
 ---
 
@@ -42,13 +45,19 @@ Die Anwendung benötigt keine externen npm-Pakete (`node_modules` ist nicht erfo
 ├── app/
 │   ├── index.html            # Haupteinstiegspunkt
 │   ├── content/
-│   │   ├── lessons.js        # Lektionsinhalte (Dialoge, Regeln, Aufgaben)
+│   │   ├── lessons.js        # Gemeinsamer geordneter Lektions-Export
+│   │   ├── legacy-lessons.js # Pilotinhalte (Dialoge, Regeln, Aufgaben)
+│   │   ├── course.js         # Kursmodule, Lernziele, Pilotstatus
+│   │   ├── a1/               # A1-Module m01.js … m12.js, Bausteine build.js
+│   │   ├── civics.js         # Eigene Übungsfragen „Leben in Deutschland“, Bundesländer
+│   │   ├── civics-extended.js # Zweite Charge allgemeiner Übungsfragen
 │   │   └── audio-manifest.json
 │   ├── assets/audio/         # WAV-Audiodateien für Dialoge & Hörübungen
 │   └── src/
 │       ├── main.js           # App-Initialisierung & Event-Handling
 │       ├── state.js          # Zustand, Spaced Repetition & Storage-Sicherheit
 │       ├── views.js          # UI-Ansichten (Heute, Lernweg, Lektion, Wiederholen)
+│       ├── civics-views.js   # Einbürgerungstest-Training und Infobereich
 │       ├── ui.js             # SVG-Icons, Komponenten & Formatierungshelfer
 │       └── styles.css        # Seniorengerechtes CSS & Farbschema
 ├── scripts/
@@ -67,9 +76,10 @@ Die Anwendung benötigt keine externen npm-Pakete (`node_modules` ist nicht erfo
 
 - **Tests ausführen**: `npm test` *(oder `node --test`)*
 - **Syntax prüfen**: `npm run check` (jede JavaScript-Datei einzeln; funktioniert auch unter Windows)
-- **Audiodateien neu generieren**: `npm run audio`
+- **Audio-Manifest aus dem Inhalt ableiten**: `npm run audio:sync`, danach nur fehlende Aufnahmen erzeugen: `npm run audio:missing`
+- **Audiodateien neu generieren**: `npm run audio` (alle) bzw. nur neue: `powershell -ExecutionPolicy Bypass -File scripts/generate-audio.ps1 -Only datei1.wav,datei2.wav`
 - **Server ohne Browser starten**: `npm start`
 - **KI-Zusammenarbeit**: Siehe [AGENTS.md](AGENTS.md) und [Workflow-Dokumentation](docs/sprachlern-app/02-workflow.md).
 - **Aktueller Stand und Übergabe**: [docs/tasks/current.md](docs/tasks/current.md).
 
-Die drei Pilotlektionen und die neue A1-Lektion „Sich vorstellen“ sind noch kein vollständiger B1-Kurs. Die kontrastiven Erklärungen wurden auf die geübten Satzmuster begrenzt. Deutsche Inhalte und vietnamesische Formulierungen benötigen vor verlässlichem Unterrichtseinsatz weiterhin eine fachliche bzw. muttersprachliche Prüfung.
+Version 1.0 enthält den vollständigen A1-Kurs (12 Module, 72 Lektionen) und das Einbürgerungstest-Training. A2 und B1 sind geplant (siehe `docs/curriculum/A1-B1-MASTERPLAN.md`); für die Einbürgerung ist B1 nötig. Die kontrastiven Erklärungen wurden auf die geübten Satzmuster begrenzt. Deutsche Inhalte und vietnamesische Formulierungen benötigen vor verlässlichem Unterrichtseinsatz weiterhin eine fachliche bzw. muttersprachliche Prüfung.

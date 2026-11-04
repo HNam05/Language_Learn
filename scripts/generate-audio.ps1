@@ -2,7 +2,11 @@
 [CmdletBinding()]
 param(
     [string]$ManifestPath,
-    [string]$OutputDir
+    [string]$OutputDir,
+    # Only these files (e.g. -Only a1-m01-l04-dialog.wav); existing recordings stay untouched.
+    [string[]]$Only,
+    # Only files that do not exist yet (use after `npm run audio:sync`).
+    [switch]$Missing
 )
 
 Set-StrictMode -Version Latest
@@ -29,8 +33,8 @@ Add-Type -AssemblyName System.Speech
 $synth = New-Object System.Speech.Synthesis.SpeechSynthesizer
 
 # Suchen einer deutschen Stimme (z.B. Microsoft Hedda oder beliebige de-DE Stimme)
-$germanVoice = $synth.GetInstalledVoices() | Where-Object { 
-    $_.Enabled -and $_.VoiceInfo.Culture.TwoLetterISOLanguageName -eq 'de' 
+$germanVoice = $synth.GetInstalledVoices() | Where-Object {
+    $_.Enabled -and $_.VoiceInfo.Culture.TwoLetterISOLanguageName -eq 'de'
 } | Select-Object -First 1
 
 if ($null -ne $germanVoice) {
@@ -46,8 +50,16 @@ $synth.Rate = -1
 $manifest = Get-Content -Raw -Path $ManifestPath -Encoding UTF8 | ConvertFrom-Json
 
 Write-Host "Generiere Audio-Dateien nach $OutputDir ..."
+# powershell.exe -File passes "a.wav,b.wav" as one string; accept both forms.
+$Only = @($Only | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+if ($Only.Count -gt 0) {
+    $unknown = $Only | Where-Object { $manifest.file -notcontains $_ }
+    if ($unknown) { Write-Error "Nicht im Manifest: $($unknown -join ', ')"; exit 1 }
+}
 foreach ($item in $manifest) {
+    if ($Only.Count -gt 0 -and ($Only -notcontains $item.file)) { continue }
     $targetFile = Join-Path $OutputDir $item.file
+    if ($Missing -and (Test-Path $targetFile)) { continue }
     Write-Host "  -> Erzeuge $($item.file) ..."
     $synth.SetOutputToWaveFile($targetFile)
     $synth.Speak($item.text)

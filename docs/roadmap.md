@@ -4,6 +4,12 @@ Stand: 27.09.2026. Diese Roadmap ergänzt `docs/tasks/current.md`; sie beschreib
 
 ## Reihenfolge
 
+**Neu ab 04.11.2026:** Übergeordnetes Ziel ist die Einbürgerung (B1 + Test „Leben in Deutschland“ bzw. Sonderregel). Priorisierung der Einbürgerungspakete E0–E6 in [EINBUERGERUNG-STRATEGIE.md](curriculum/EINBUERGERUNG-STRATEGIE.md). E0 (Weg der Lernperson klären) vor allen weiteren Inhaltspaketen.
+
+Für den systematischen Kursausbau gilt jetzt der [A1–B1-Masterplan](curriculum/A1-B1-MASTERPLAN.md) mit 36 Modulen und kleinen Implementierungspaketen. Einstieg für 5.6 Luna: [Startauftrag](curriculum/LUNA-START.md), Fortschritt: [Paketstatus](curriculum/IMPLEMENTATION-STATUS.md). Die folgenden älteren Pakete bleiben Hintergrund; die konkrete Reihenfolge des Kursausbaus steht im Paketstatus.
+
+Ergänzender [Feature- und UI-Vorschlag vom 27.09.2026](design/feature-ui-plan-2026-09-27.md): Recherche, konkrete Codebefunde, priorisierte Pakete und visueller Entwurf. Vorschlag, noch nicht umgesetzt; zuerst die dort beschriebenen Audio-/Textprobleme der neuen Lektion beheben.
+
 ### Paket 1 – fachlicher Inhalt (begonnen)
 
 Eine muttersprachliche DaF-Prüfung der drei Pilotlektionen und ihrer vietnamesischen Hilfen. Eine erste neue A1-Lektion „Sich vorstellen“ ist als vertikaler Schnitt (Handlung, Dialog, Grammatik, Abruf, eigener Satz) ergänzt. Die deutsche WAV-Erzeugung ist wegen einer fehlenden Windows-Stimme noch offen. Lernziel, Lösung und typische Fehler vor jeder weiteren UI-Arbeit festlegen. Bestehende IDs bleiben erhalten.
