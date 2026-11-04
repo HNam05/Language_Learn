@@ -58,7 +58,8 @@ Vor jedem Abschluss eines Arbeitspakets ausführen:
 1. **Paketweise arbeiten**: Jeweils genau ein Assistent bearbeitet ein definiertes Paket im Workspace.
 2. **Git ist maßgeblich**: Saubere Commits mit sprechenden Beschreibungen; vor Beginn `git status` prüfen.
 3. **Trennung von Inhalt und Code**:
-   - `app/content/lessons.js` ist der gemeinsame geordnete Lektions-Export. Pilotinhalte liegen in `app/content/legacy-lessons.js`, Modulmetadaten in `app/content/course.js`.
+   - `app/content/lessons.js` ist der gemeinsame geordnete Lektions-Export. Pilotinhalte liegen in `app/content/legacy-lessons.js`, Kursmodule in `app/content/a1/mNN.js` (ab M04 mit den Bausteinen aus `a1/build.js`; IDs werden aus der Position abgeleitet, veröffentlichte Schritte nie umsortieren), Modulmetadaten in `app/content/course.js`.
+   - Neue Höraufgaben: `npm run audio:sync` (Manifest aus dem Inhalt), dann `npm run audio:missing` (nur fehlende WAVs).
    - Audiodaten liegen in `app/assets/audio/` und sind im `audio-manifest.json` dokumentiert.
    - Kernlogik liegt in `app/src/state.js` und ist durch Tests in `tests/state.test.js` abzusichern.
    - UI und Views liegen in `app/src/ui.js`, `app/src/views.js` und `app/src/civics-views.js` (Einbürgerungstest-Training).

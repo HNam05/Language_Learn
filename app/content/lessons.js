@@ -16,10 +16,10 @@ import { courseModules } from './course.js';
 // Shared public export. Add future module arrays to content; preserve legacy IDs.
 const content = new Map([...legacyLessons, ...a1m01Lessons, ...a1m02Lessons, ...a1m03Lessons, ...a1m04Lessons, ...a1m05Lessons, ...a1m06Lessons, ...a1m07Lessons, ...a1m08Lessons, ...a1m09Lessons, ...a1m10Lessons, ...a1m11Lessons, ...a1m12Lessons].map(lesson => [lesson.id, lesson]));
 export const lessons = [...courseModules].sort((a, b) => a.order - b.order).flatMap(module =>
-  module.lessonIds.map(id => {
+  module.lessonIds.map((id, index) => {
     const lesson = content.get(id);
     if (!lesson) throw new Error(`Unknown lesson in ${module.id}: ${id}`);
-    return { ...lesson, moduleId: module.id, moduleOrder: module.order,
+    return { ...lesson, moduleId: module.id, moduleOrder: module.order, lessonNumber: index + 1, moduleSize: module.lessonIds.length,
       moduleTitle: module.title, moduleGoal: module.goals[0]?.text || '',
       goalIds: module.goals.map(goal => goal.id), skills: module.skills };
   })

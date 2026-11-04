@@ -2,7 +2,13 @@
 
 Stand: 27.09.2026, nach Korrektur des Luna-Reviews. Vier Pilotlektionen sind verfügbar; der vollständige Kurs ist weiterhin geplant. Vertrag: [Masterplan](A1-B1-MASTERPLAN.md). Einstieg: [Luna-Start](LUNA-START.md).
 
-## Stand 04.11.2026 (Claude Code)
+## Stand Version 1.0 (04.11.2026, Claude Code)
+
+Alle zwölf A1-Module sind mit je sechs Lektionen umgesetzt (72 Lektionen; Modulblätter `modules/a1-m01.md`, `a1-m02.md`, `a1-m03.md`, `a1-m04-bis-m12.md`). Status aller Module: `pilot` = technisch geprüft, fachlich offen. T04 (Lernweg nach Niveau/Modul) und T05 (Wiederholung in Portionen) sind in Version 1.0 umgesetzt.
+
+**Genau nächstes Paket: C-A1-QA** – alle 51 Audios anhören, Module mit der Lernperson erproben, deutsch/vietnamesisches Review. Danach T06 (State v2 für Checks), T07 (Check-Renderer), Checks A1-C01 bis C03, dann A2-M01.
+
+## Stand 04.11.2026 (Claude Code, vorher)
 
 C-A1-M01-PLAN und C-A1-M01-L02 bis L06 umgesetzt: [Modulblatt](modules/a1-m01.md), Inhalte in `app/content/a1/m01.js`, Kursregistry mit fünf Zielen und sechs Lektionen, drei neue WAVs (nur diese erzeugt: `generate-audio.ps1 -Only …`). Modulstatus bleibt `pilot`: technisch geprüft, fachlich offen, Audio von keinem Menschen angehört.
 

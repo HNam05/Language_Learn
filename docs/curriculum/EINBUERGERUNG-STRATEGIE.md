@@ -79,7 +79,7 @@ Bewusst **nicht** übernommen: der amtliche Fragenkatalog. Das Projekt verlinkt 
 | E1 ✔ | **Vorlesen** von Testfragen und Antworten über die lokale Browser-Sprachausgabe (`speechSynthesis`, deutsche Stimme falls vorhanden), Tempo 0,8/1,0 | Funktioniert offline oder meldet verständlich, dass keine Stimme verfügbar ist |
 | E2 ✔ | **Fragenbestand**: 100 allgemeine + 48 Landesfragen, Bundesland-Auswahl. Später nur noch gezielt ergänzen, wenn Lücken beim Üben mit dem BAMF-Katalog auffallen | Fachliche Faktenprüfung je Frage mit Quelle; Validator grün |
 | E3 ✔ | **Probetest** mit 30 + 3 Fragen ohne Zeitzwang, Ergebnis „17 nötig“ ohne Bewertung der Person | Unterbrechen und Fortsetzen möglich; keine Ranglisten |
-| E4 (begonnen) | **Kurs A1→B1** – A1-M01 bis A1-M03 mit je sechs Lektionen technisch fertig (04.11.2026), fachlich offen; nach Masterplan, Reihenfolge an Alltag und Prüfung ausrichten: Kontakt, Termine, Arzt, Wohnung, Amt/Briefe, Einkaufen | Pro Modul L01–L06 vollständig und gegengelesen |
+| E4 (A1 fertig) | **Kurs A1→B1** – A1 vollständig: 12 Module, 72 Lektionen (04.11.2026), technisch geprüft, fachlich offen; A2/B1 folgen; nach Masterplan, Reihenfolge an Alltag und Prüfung ausrichten: Kontakt, Termine, Arzt, Wohnung, Amt/Briefe, Einkaufen | Pro Modul L01–L06 vollständig und gegengelesen |
 | E5 | **DTZ-nahe Übungen** (eigene Aufgaben): Sich vorstellen, über Erfahrungen sprechen, gemeinsam planen; kurze Briefe/E-Mails (Bitte, Absage, Beschwerde) | Format gegen aktuelle g.a.s.t.-Unterlagen geprüft |
 | E6 | Optional nach B1: B2-Strang | Erst nach fertigem B1-Pfad |
 

@@ -89,3 +89,78 @@
 .speak-status { flex-basis:100%; color:#8d3716; margin:4px 0 0; }
 .land-choice select { min-width:min(100%, 340px); font-size:1rem; }
 
+/* ---- Version 1.0: start page, learning path, typography floor ---- */
+
+/* AGENTS.md: running text at least 20 px (1rem); large mode 24 px. Labels may stay smaller. */
+.hint, .lesson-row p, dd, .quick-stats span, .text-button, .progress-description, .closing-note,
+.lesson-context, .lesson-toolbar, .audio-block label, .featured .lesson-meta, .featured-copy .small-label,
+.help-toggle, .contrast-note, .why-hint p, .choice small, .welcome-card li small, .welcome-card .hint small,
+.welcome-actions small, small, .switch-row small { font-size: 1rem; }
+@media (max-width: 740px) { .lesson-toolbar, .lesson-toolbar .text-button, .lesson-row .text-button { font-size: 1rem; } }
+
+progress { appearance: none; -webkit-appearance: none; border: 0; height: 10px; border-radius: 6px; background: #dce0d6; overflow: hidden; }
+progress::-webkit-progress-bar { background: #dce0d6; border-radius: 6px; }
+progress::-webkit-progress-value { background: var(--green); border-radius: 6px; }
+progress::-moz-progress-bar { background: var(--green); border-radius: 6px; }
+
+.level-progress { display: grid; gap: 8px; max-width: 980px; margin: 22px 0 8px; color: var(--muted); }
+.level-progress progress { width: 100%; }
+
+.today { margin-top: 30px; max-width: 980px; }
+.today h2 { margin-bottom: 12px; }
+.today-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.today-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 18px; align-items: center; background: #fffefa; border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; }
+.today-row h3 { margin: 0 0 2px; }
+.today-row p { margin: 0; color: var(--muted); }
+.today-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--sage); color: var(--green); display: grid; place-items: center; }
+.today-row .button { white-space: nowrap; }
+.closing-note .button { margin-left: 12px; }
+
+.lesson-list { list-style: none; margin: 0; padding: 0; }
+.lesson-row.is-next { background: #eef3e8; border-radius: 8px; padding-left: 12px; padding-right: 12px; }
+.status { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 2px 10px; border-radius: 999px; font-size: .9rem; font-weight: 650; }
+.status svg { width: 18px; height: 18px; }
+.status.done { background: #dbe9d4; color: #1d4a32; }
+.status.next { background: #fff3d6; color: #6b4300; border: 1px solid #c9a24a; }
+
+.level-section { margin-top: 30px; }
+.module-list { display: grid; gap: 14px; max-width: 1000px; }
+.module-card { margin: 0; background: #fffefa; border: 1px solid var(--line); border-left: 5px solid #b8c4b0; border-radius: 8px; }
+.module-card[open] { border-left-color: var(--green); }
+.module-card.is-done { border-left-color: #6f9a62; }
+.module-card > summary { list-style: none; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "number title progress" "bar bar bar"; gap: 6px 16px; align-items: center; padding: 18px 22px; text-decoration: none; color: inherit; min-height: 64px; }
+.module-card > summary::-webkit-details-marker { display: none; }
+.module-card > summary::after { content: ""; }
+.module-number { grid-area: number; font-size: .95rem; font-weight: 700; color: var(--green); background: var(--sage); border-radius: 6px; padding: 4px 10px; white-space: nowrap; }
+.module-title { grid-area: title; font-size: 1.2rem; font-weight: 700; }
+.module-progress { grid-area: progress; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
+.module-progress svg { width: 20px; height: 20px; color: #2f6b45; }
+.module-card > summary progress { grid-area: bar; width: 100%; height: 8px; }
+.module-card > summary:hover .module-title { text-decoration: underline; text-underline-offset: 4px; }
+.module-body { padding: 0 22px 14px; border-top: 1px solid var(--line); }
+.module-goal-title { margin: 16px 0 6px; font-weight: 650; }
+.module-goals { margin: 0 0 8px; padding-left: 1.3em; color: var(--muted); }
+.module-goals li { margin: 4px 0; }
+
+.level-planned { margin-top: 26px; max-width: 1000px; padding: 20px 24px; border: 2px dashed #b8c4b0; border-radius: 8px; color: var(--muted); }
+.level-planned h2 { color: #3c4a44; font-size: 1.35rem; }
+.level-planned p { margin-bottom: 8px; }
+
+.lesson-context strong { color: #102923; font-weight: 650; }
+.source-text .speak-row { margin-top: 12px; }
+.recall-answer .speak-row { margin-bottom: 14px; }
+
+@media (max-width: 740px) {
+  .today-row { grid-template-columns: 44px minmax(0, 1fr); padding: 14px 16px; }
+  .today-icon { width: 44px; height: 44px; }
+  .today-row .button { grid-column: 1 / -1; width: 100%; }
+  .module-card > summary { grid-template-columns: minmax(0, 1fr); grid-template-areas: "number" "title" "progress" "bar"; padding: 16px; }
+  .module-number { justify-self: start; }
+  .module-body { padding: 0 14px 12px; }
+  .closing-note .button { display: flex; margin: 12px 0 0; width: 100%; }
+}
+@media print { .today, .level-progress, .level-section, .level-planned { display: none !important; } }
+/* Labels too: brand subtitle, status badges, module numbers and the mobile navigation. */
+.brand span, .status, .module-number { font-size: 1rem; }
+@media (max-width: 740px) { .sidebar nav button, .settings-nav, .help-toggle, .brand span { font-size: 1rem; } }
+

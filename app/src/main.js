@@ -1,8 +1,9 @@
 import { lessons } from '../content/lessons.js';
+import { courseModules } from '../content/course.js';
 import { civicsQuestions, civicsTopics, civicsSources, bundeslaender } from '../content/civics.js';
 import { createStore, completeLesson, isCorrect, dueWords, scheduleReview, validateState, civicsRound, civicsProgress, mockTestIds, startCivicsSession, answerCivicsSession, advanceCivicsSession } from './state.js';
 import { icon, escapeHtml as e, speak } from './ui.js';
-import { homeView, pathView, lessonView, finishView, reviewView, settingsView } from './views.js';
+import { homeView, pathView, lessonView, finishView, reviewView, settingsView, nextLesson } from './views.js';
 import { civicsView, civicsQuizView } from './civics-views.js';
 
 // A denied localStorage getter must not prevent opening the learning interface.
@@ -42,17 +43,17 @@ function render({ focus = true, preservePosition = false, focusSelector = '' } =
   document.documentElement.classList.toggle('large-text', state.settings.largeText);
   let body;
   if (page === 'lesson' && state.active) body = lessonView(lessons.find(item => item.id === state.active.lessonId), state.active, state.settings);
-  else if (page === 'path') body = pathView(lessons, state);
-  else if (page === 'finish' && finishedLesson) body = finishView(finishedLesson);
+  else if (page === 'path') body = pathView(lessons, state, courseModules);
+  else if (page === 'finish' && finishedLesson) body = finishView(finishedLesson, nextLesson(lessons, state));
   else if (page === 'review') {
     const word = lessons.flatMap(item => item.words).find(item => item.id === reviewQueue[0]);
-    body = reviewView(word, word && state.reviews[word.id], reviewRevealed, reviewQueue.length, Object.keys(state.reviews).length, state.settings, voluntaryReview);
+    body = reviewView(word, word && state.reviews[word.id], reviewRevealed, reviewQueue.length, Object.keys(state.reviews).length, state.settings, voluntaryReview, voluntaryReview ? 0 : dueWords(state, lessons).length);
   } else if (page === 'settings') body = settingsView(state, pendingImport, settingsMessage);
   else if (page === 'civics') body = civicsView(activeCivicsTopics(), civicsOverview(), civicsSources, state.settings, bundeslaender, openCivicsSession());
   else if (page === 'civics-quiz') body = civicsQuizView(civicsQuizData(), state.settings);
   else body = homeView(lessons, state, civicsOverview().all);
   const selected = page === 'lesson' || page === 'finish' ? 'home' : page === 'civics-quiz' ? 'civics' : page;
-  const nav = [['home', 'home', 'Heute'], ['path', 'book', 'Mein Lernweg'], ['review', 'repeat', 'Wiederholen'], ['civics', 'flag', 'Einbürgerungstest']];
+  const nav = [['home', 'home', 'Heute'], ['path', 'book', 'Mein Lernweg'], ['review', 'repeat', 'Wiederholen'], ['civics', 'flag', 'Einbürgerung']];
   app.innerHTML = `<aside class="sidebar"><a class="brand" href="#" data-action="home">Schritt für Schritt<span>Deutsch im Alltag</span></a><nav aria-label="Hauptnavigation">${nav.map(([action, glyph, label]) => `<button data-action="${action}" ${selected === action ? 'aria-current="page"' : ''}>${icon(glyph)}<span>${label}</span></button>`).join('')}</nav><button class="settings-nav" data-action="settings" ${selected === 'settings' ? 'aria-current="page"' : ''}>${icon('settings')}<span>Einstellungen</span></button></aside><div class="workspace"><div class="topbar"><button class="help-toggle" data-action="toggle-help" aria-pressed="${state.settings.vietnamese}">${icon('help')}<span>Hilfe auf Vietnamesisch${state.settings.vietnamese ? ' · an' : ''}</span></button></div><div id="storage-warning" class="storage-warning" role="alert" ${store.warning ? '' : 'hidden'}>${e(store.warning)}</div><main id="main" tabindex="-1">${body}</main></div>`;
   // Reuse the actual media node: a translation/feedback update must not restart audio.
   app.querySelectorAll('audio').forEach(placeholder => {
@@ -63,7 +64,7 @@ function render({ focus = true, preservePosition = false, focusSelector = '' } =
     previous.element.closest('.audio-block').querySelector('[data-speed]').value = String(previous.rate);
     if (previous.playing) previous.element.play().catch(() => {});
   });
-  app.querySelectorAll('[data-disclosure]').forEach(element => { element.open = disclosures.get(element.dataset.disclosure) || false; });
+  app.querySelectorAll('[data-disclosure]').forEach(element => { if (disclosures.has(element.dataset.disclosure)) element.open = disclosures.get(element.dataset.disclosure); });
   app.querySelectorAll('audio').forEach(audio => { audio.onerror = () => {
     audio.closest('.audio-block').querySelector('.audio-error').textContent = 'Die Aufnahme konnte nicht geladen werden. Sie können mit dem Text weiterüben.';
   }; });
@@ -152,9 +153,16 @@ function startCivics({ topic = null, mode = 'round' } = {}) {
   page = 'civics-quiz';
 }
 
+// Small portions (masterplan T05): the most overdue words first; voluntary rounds pick at random,
+// so practice does not always start with the first lesson's words.
+const REVIEW_PORTION = 10;
 function startReview(all = false) {
   voluntaryReview = all;
-  reviewQueue = (all ? lessons.flatMap(item => item.words).filter(word => state.reviews[word.id]) : dueWords(state, lessons)).map(word => word.id);
+  const known = lessons.flatMap(item => item.words).filter(word => state.reviews[word.id]);
+  const words = all
+    ? shuffledOrder(known.length).map(index => known[index])
+    : dueWords(state, lessons).sort((a, b) => state.reviews[a.id].due - state.reviews[b.id].due);
+  reviewQueue = words.slice(0, REVIEW_PORTION).map(word => word.id);
   reviewRevealed = false;
   page = 'review';
 }
@@ -198,6 +206,10 @@ app.addEventListener('click', event => {
     state.settings.vietnamese = action === 'start-with-vietnamese';
     state.settings.onboardingSeen = true;
     persist();
+  } else if (action === 'show-intro') {
+    state.settings.onboardingSeen = false;
+    persist();
+    page = 'home';
   } else if (action === 'print-notes') {
     window.print();
     return;

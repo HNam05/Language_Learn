@@ -1,5 +1,15 @@
 # Aktueller Entwicklungsstand
 
+## Version 1.0 · 04.11.2026 · Claude Code · Branch `a1-kurs-ui`
+
+**A1 ist vollständig: 12 Module × 6 Lektionen = 72 Lektionen**, dazu das Einbürgerungstest-Training (148 Fragen, Probeprüfung). Alles technisch geprüft, **fachlich offen** (kein Deutsch-/Vietnamesischreview, kein menschliches Anhören). A2/B1 sind im Lernweg als „in Vorbereitung“ sichtbar, ohne Startknopf.
+
+- Inhalte: neue Module M04–M12 in `app/content/a1/m04.js` … `m12.js` (Bausteine `build.js`), Modulblatt `docs/curriculum/modules/a1-m04-bis-m12.md`. Altlektionen `termine`, `einkaufen`, `gestern` bleiben L01 mit unveränderten IDs.
+- Audio: 33 neue WAVs (insgesamt 51, ~45 MB); `npm run audio:sync` leitet das Manifest aus dem Inhalt ab, `npm run audio:missing` erzeugt nur fehlende Dateien. Ältere WAVs bytegleich (Hash geprüft).
+- Oberfläche: Startseite mit einer nächsten Übung (Modul/Lektion), A1-Fortschritt und „Heute“-Zeilen statt Liste aller Lektionen; Lernweg nach Niveau, aufklappbare Module mit Kann-Zielen und Fortschritt, „Als Nächstes“-Markierung; Abschlussseite mit „Weiter: nächste Lektion“ und „Modul geschafft!“; Wortwiederholung in Runden zu 10 (überfälligste zuerst, freiwillige zufällig) mit „Nächste Runde“; Vorlesen für Texte und Wörter ohne Aufnahme; „Einführung noch einmal zeigen“; Navigationspunkt „Einbürgerung“; Fließtext und Beschriftungen mindestens 20 px.
+- Prüfungen: `node --test` 85/85, `npm run check` 31 Dateien, `npm run content:check` 72 Lektionen/959 IDs/51 Audios/148 Testfragen. Browser (127.0.0.1:8893, frischer Lernstand): alle 72 Lektionen durchgespielt ohne Fehler; Wiederholungsrunden (308 fällig → 10 → „noch 298“); Lernweg, große Schrift, Einführung erneut, Hilfesprache. Layoutmessung in Rahmen mit 375/1024/1280 px, normale und große Schrift: kein horizontales Überlaufen, Bedienflächen ≥ 44 px. Kontrast rechnerisch ≥ 4,5:1 für alle Textfarben (keine vollständige WCAG-Prüfung). Screenshots nur teilweise möglich (Fenster zeitweise verdeckt).
+- Offen: Anhören aller Audios (besonders „Kuli“, „Fischsoße“, „Pagode“, „Phở“), muttersprachliches Review, Nutzertest mit der Lernperson, Lernstandschecks (T06/T07), A2/B1-Inhalte.
+
 ## Neu: Paket E-LID-01 · 04.11.2026 · Claude Code
 
 Ziel neu eingeordnet: Einbürgerung. Rechtlich genügt B1 plus Test „Leben in Deutschland“; für frühere DDR-Vertragsarbeitnehmer (Einreise bis 13.06.1990) nur mündliches Alltagsdeutsch und kein Test (§ 10 Abs. 4 Satz 3, Abs. 6 StAG). Recherche, Lernstrategie und Pakete E0–E6: [EINBUERGERUNG-STRATEGIE.md](../curriculum/EINBUERGERUNG-STRATEGIE.md).
